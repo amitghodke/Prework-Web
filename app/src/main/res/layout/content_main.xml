@@ -1,90 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="4dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.sample.preworkassignment.activity.Main2Activity"
-    tools:showIn="@layout/activity_main2">
+    tools:context="com.sample.preworkassignment.activity.Main2Activity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
+        android:id="@+id/txtUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <EditText
+            android:id="@+id/edtImageId"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="Enter Image ID ex wy4pCR0" />
+
+        <Button
+            android:id="@+id/btnGetImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Image"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:adjustViewBounds="true" />
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="4dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.sample.preworkassignment.activity.Main2Activity">
-
-        <TextView
-            android:id="@+id/txtUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="2dp">
-
-            <EditText
-                android:id="@+id/edtImageId"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/btnGetImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Get Image"
-                android:textColor="@color/colorAccent" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:adjustViewBounds="true" />
+        tools:context="com.sample.preworkassignment.activity.Main2Activity"
+        tools:showIn="@layout/activity_main2">
 
         <LinearLayout
             android:id="@+id/lnearLayoutComments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+
             android:orientation="vertical">
 
         </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edtComment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="Enter Comment"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnsend"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            >
-
-            <EditText
-                android:id="@+id/edtComment"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/btnsend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="post"
-                android:textColor="@color/colorAccent"
-                android:visibility="gone" />
-        </LinearLayout>
+            android:text="post"
+            android:textColor="@color/colorAccent"
+            android:visibility="gone" />
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</LinearLayout>

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!edtId.getText().toString().isEmpty()) {
                     getImageFromID();
 //                    getCommentsFromId();
-                    //new loadimage().execute();
+                    new loadimage().execute();
                 } else Utils.showToast(getApplicationContext(), "please enter valid image Id");
             }
 
@@ -117,17 +119,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void postComment() {
-        String URL = "image/" + edtId.getText().toString() + "/comments";
+        String URL = "comment";
         final ProgressDialog pdLoading = new ProgressDialog(MainActivity.this);
         pdLoading.setMessage("adding comment...");
         pdLoading.show();
-        StringRequest request = new StringRequest(Method.GET, Constants.BASE_URL + URL, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Method.POST, Constants.BASE_URL + URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 pdLoading.dismiss();
                 if (!response.equals(null)) {
                     try {
-  //                      JSONObject jsonObject1 = new JSONObject(response);
+                        Log.v("response", response);
+                        //                      JSONObject jsonObject1 = new JSONObject(response);
 //                        JSONObject jsonObject = jsonObject1.getJSONObject("data");
                         Utils.showToast(getApplicationContext(), "Comment Posted");
                         edtComment.setText("");
@@ -155,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json; charset=UTF-8");
-                params.put("Authorization", "Client-ID " + Constants.CLIENT_ID);
+                params.put("Authorization", "Bearer " + Constants.ACCESS_TOKEN);
                 return params;
             }
 
@@ -302,5 +305,40 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
+    class loadimage extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pdLoading = new ProgressDialog(MainActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdLoading.setMessage("Loading Image...");
+            pdLoading.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            String stringurl = "https://imgur.com/a/ywMQNfC";
+            try {
+                Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(stringurl).getContent());
+                Log.v("biiiiiiiiiiii", bitmap + "");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            pdLoading.dismiss();
+            // do what you want with your bitmap
+            return;
+        }
     }
 }
